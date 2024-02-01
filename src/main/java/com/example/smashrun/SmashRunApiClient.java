@@ -1,12 +1,8 @@
 package com.example.smashrun;
-import java.io.IOException;
-import java.text.MessageFormat;
 
 import com.example.smashrun.models.SmashRunActivity;
 import com.example.smashrun.models.SmashRunActivitySummary;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component

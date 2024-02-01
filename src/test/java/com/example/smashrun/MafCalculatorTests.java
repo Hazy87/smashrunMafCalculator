@@ -16,25 +16,36 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 class MafCalculatorTests {
 
-    @Test public void testCalculateTimeInMaf_50() throws IOException {
+    @Test public void testCalculateTimeInMaf_75() throws IOException {
         var mafRangeProvider = mock(MafRangeProvider.class);
-        when(mafRangeProvider.GetMafRange()).thenReturn(new MafRange(2,4));
+        when(mafRangeProvider.GetMafRange()).thenReturn(new MafRange(2.0,4.0));
 
         var myClass = new MafCalculator(mafRangeProvider);
-        var mafTime = myClass.CalculateTimeInMaf(new ArrayList<>(Arrays.asList(2, 1, 2, 3)));
+        var mafTime = myClass.CalculateTimeInMaf(new ArrayList<>(Arrays.asList(2.0, 1.0, 2.0, 3.0)),new ArrayList<>(Arrays.asList(0.0, 1.0, 2.0, 3.0)));
 
-        assertEquals(mafTime, 50);
+        assertEquals(33,mafTime);
     }
 
-    @Test public void testCalculateTimeInMaf_25() throws IOException {
+    @Test public void testCalculateTimeInMaf_50() throws IOException {
         var mafRangeProvider = mock(MafRangeProvider.class);
-        when(mafRangeProvider.GetMafRange()).thenReturn(new MafRange(2,4));
+        when(mafRangeProvider.GetMafRange()).thenReturn(new MafRange(2.0,4.0));
 
         var myClass = new MafCalculator(mafRangeProvider);
 
-        var mafTime = myClass.CalculateTimeInMaf(new ArrayList<>(Arrays.asList(1, 1, 2, 3)));
+        var mafTime = myClass.CalculateTimeInMaf(new ArrayList<>(Arrays.asList(1.0, 1.0, 2.0, 3.0)),new ArrayList<>(Arrays.asList(0.0, 1.0, 2.0, 3.0)));
 
-        assertEquals(mafTime, 25);
+        assertEquals(33, mafTime);
+    }
+
+    @Test public void testCalculateTimeInMaf_50_withTime() throws IOException {
+        var mafRangeProvider = mock(MafRangeProvider.class);
+        when(mafRangeProvider.GetMafRange()).thenReturn(new MafRange(2.0,4.0));
+
+        var myClass = new MafCalculator(mafRangeProvider);
+
+        var mafTime = myClass.CalculateTimeInMaf(new ArrayList<>(Arrays.asList(1.0, 1.0, 2.0, 3.0,1.0,1.0,1.0)),new ArrayList<>(Arrays.asList(0.0, 1.0, 2.0, 3.0,10.0,15.0,20.0)));
+
+        assertEquals(40, mafTime);
     }
 
 

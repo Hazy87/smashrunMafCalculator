@@ -41,7 +41,7 @@ public class SmashRunActivity {
     public Date dateCreatedUTC;
     public Date dateUpdatedUTC;
     public List<String> recordingKeys;
-    public List<List<Integer>> recordingValues;
+    public List<List<Double>> recordingValues;
     public List<Object> pauseIndexes;
     public List<SmashRunLap> laps;
     public Object songs;

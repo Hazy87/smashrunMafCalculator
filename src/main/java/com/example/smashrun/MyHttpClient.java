@@ -1,7 +1,6 @@
 package com.example.smashrun;
 
-import com.example.smashrun.models.SmashRunActivitySummary;
-import com.fasterxml.jackson.databind.ObjectMapper;
+    import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;

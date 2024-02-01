@@ -18,10 +18,14 @@ public class AppConfig{
     public String access_token;
 
     @Bean
+    public TimeFormatter timeFormatter(){ return new TimeFormatter();}
+    @Bean
     public MyHttpClient httpClient(){
         return new MyHttpClient();
     }
 
+    @Bean
+    public PbCalculator pbCalculator(){ return new PbCalculator();}
     @Bean
     public SmashRunApiClient smashRunClient(){
         return new SmashRunApiClient(httpClient());
