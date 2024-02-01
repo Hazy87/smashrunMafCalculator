@@ -17,6 +17,8 @@ public class AppConfig{
     @Value("${smashrun.access_token}")
     public String access_token;
 
+    @Bean RunMessageCreatingService runMessageCreatingService(){return new RunMessageCreatingService(timeFormatter());}
+    @Bean RunDataCollectorService runDataCollectorService(){ return new RunDataCollectorService(pbCalculator(),mafCalculator(),smashRunClient());};
     @Bean
     public TimeFormatter timeFormatter(){ return new TimeFormatter();}
     @Bean
