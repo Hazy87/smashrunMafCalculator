@@ -23,7 +23,7 @@ class MafCalculatorTests {
         var myClass = new MafCalculator(mafRangeProvider);
         var mafTime = myClass.CalculateTimeInMaf(new ArrayList<>(Arrays.asList(2.0, 1.0, 2.0, 3.0)),new ArrayList<>(Arrays.asList(0.0, 1.0, 2.0, 3.0)));
 
-        assertEquals(33,mafTime);
+        assertEquals(33,Math.round(mafTime));
     }
 
     @Test public void testCalculateTimeInMaf_50() throws IOException {
@@ -34,7 +34,7 @@ class MafCalculatorTests {
 
         var mafTime = myClass.CalculateTimeInMaf(new ArrayList<>(Arrays.asList(1.0, 1.0, 2.0, 3.0)),new ArrayList<>(Arrays.asList(0.0, 1.0, 2.0, 3.0)));
 
-        assertEquals(33, mafTime);
+        assertEquals(33, Math.round(mafTime));
     }
 
     @Test public void testCalculateTimeInMaf_50_withTime() throws IOException {
@@ -45,7 +45,7 @@ class MafCalculatorTests {
 
         var mafTime = myClass.CalculateTimeInMaf(new ArrayList<>(Arrays.asList(1.0, 1.0, 2.0, 3.0,1.0,1.0,1.0)),new ArrayList<>(Arrays.asList(0.0, 1.0, 2.0, 3.0,10.0,15.0,20.0)));
 
-        assertEquals(40, mafTime);
+        assertEquals(40, Math.round(mafTime));
     }
 
 

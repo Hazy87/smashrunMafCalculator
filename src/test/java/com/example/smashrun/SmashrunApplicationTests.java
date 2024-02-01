@@ -1,9 +1,12 @@
 package com.example.smashrun;
 
+import com.example.smashrun.models.SmashRunActivitySummary;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -14,8 +17,10 @@ class SmashRunClientTests {
 
     @Test public void testGetLatestActivities_CallsHttpClient_Once() throws IOException {
         var httpClient = mock(MyHttpClient.class);
-        var responseJson = "[{\"activityId\":123,\"heartRateAverage\":80}]";
-        when(httpClient.Get(anyString())).thenReturn(responseJson);
+        var summary = new SmashRunActivitySummary();
+        summary.heartRateAverage = 80;
+        SmashRunActivitySummary[] summaries = {summary};
+        when(httpClient.GetFromJson(anyString(), eq(SmashRunActivitySummary[].class))).thenReturn(summaries);
 
         var myClass = new SmashRunApiClient(httpClient);
 
@@ -23,7 +28,7 @@ class SmashRunClientTests {
         var activities = myClass.GetLatestActivities(numberOfActivities);
 
         var expectedUrl = "https://api.smashrun.com/v1/my/activities/search?count=1&access_token=";
-        verify(httpClient, times(1)).Get(startsWith(expectedUrl));
+        verify(httpClient, times(1)).GetFromJson(startsWith(expectedUrl), eq(SmashRunActivitySummary[].class));
 
         var expectedOutput = 80;
         assertEquals(expectedOutput, activities[0].heartRateAverage);
@@ -31,8 +36,8 @@ class SmashRunClientTests {
 
     @Test public void testGetLatestActivities_Returns_CorrectNumberOfActivities() throws IOException {
         var httpClient = mock(MyHttpClient.class);
-        var responseJson = "[{\"activityId\":123,\"heartRateAverage\":80},{\"activityId\":321,\"heartRateAverage\":80}]";
-        when(httpClient.Get(anyString())).thenReturn(responseJson);
+        SmashRunActivitySummary[] summaries = {new SmashRunActivitySummary(), new SmashRunActivitySummary()};
+        when(httpClient.GetFromJson(anyString(), eq(SmashRunActivitySummary[].class))).thenReturn(summaries);
 
         var myClass = new SmashRunApiClient(httpClient);
 
